@@ -1,4 +1,4 @@
-package com.yourdomain.realestate.model; // This must match your package: com.yourdomain.realestate.model
+package com.yourdomain.realestate.model;
 
 import java.io.Serializable;
 import java.math.BigDecimal;
@@ -18,6 +18,7 @@ public class Property implements Serializable {
     private String location; // e.g., "New York, NY", "Suburban Area"
     private String description; // A longer description for the details page
     private String shortDescription; // A brief description for the listing view
+    private String fullDescription; // Added: Field for the full description
     private String imagePath; // Path or URL to the main image file (e.g., "images/apt1.jpg")
 
     /**
@@ -30,6 +31,8 @@ public class Property implements Serializable {
 
     /**
      * Parameterized constructor to create a Property object with initial values.
+     * Note: This constructor doesn't include fullDescription. You might update this
+     * or use setters after creating the object.
      */
     public Property(String title, BigDecimal price, String location, String description, String shortDescription, String imagePath) {
         this(); // Call the default constructor to automatically generate the ID
@@ -39,75 +42,34 @@ public class Property implements Serializable {
         this.description = description;
         this.shortDescription = shortDescription;
         this.imagePath = imagePath;
+        // fullDescription is not set in this constructor
     }
 
     // --- Getters ---
-    // Provide access to the private fields
 
-    public String getId() {
-        return id;
-    }
+    public String getId() { return id; }
+    public String getTitle() { return title; }
+    public BigDecimal getPrice() { return price; }
+    public String getLocation() { return location; }
+    public String getDescription() { return description; } // Existing description getter
+    public String getShortDescription() { return shortDescription; } // Existing shortDescription getter
+    public String getFullDescription() { return fullDescription; } // Added: Getter for fullDescription
+    public String getImagePath() { return imagePath; }
 
-    public String getTitle() {
-        return title;
-    }
-
-    public BigDecimal getPrice() {
-        return price;
-    }
-
-    public String getLocation() {
-        return location;
-    }
-
-    public String getDescription() {
-        return description;
-    }
-
-    public String getShortDescription() {
-        return shortDescription;
-    }
-
-    public String getImagePath() {
-        return imagePath;
-    }
 
     // --- Setters ---
-    // Allow modification of the fields. Setters are also needed for JSON deserialization.
 
-    // We allow setting the ID, primarily for loading from file,
-    // but generation is automatic on creation.
-    public void setId(String id) {
-        this.id = id;
-    }
+    public void setId(String id) { this.id = id; }
+    public void setTitle(String title) { this.title = title; }
+    public void setPrice(BigDecimal price) { this.price = price; }
+    public void setLocation(String location) { this.location = location; }
+    public void setDescription(String description) { this.description = description; } // Existing description setter
+    public void setShortDescription(String shortDescription) { this.shortDescription = shortDescription; } // Existing shortDescription setter
+    public void setFullDescription(String fullDescription) { this.fullDescription = fullDescription; } // Added: Setter for fullDescription
+    public void setImagePath(String imagePath) { this.imagePath = imagePath; }
 
-    public void setTitle(String title) {
-        this.title = title;
-    }
-
-    public void setPrice(BigDecimal price) {
-        this.price = price;
-    }
-
-    public void setLocation(String location) {
-        this.location = location;
-    }
-
-    public void setDescription(String description) {
-        this.description = description;
-    }
-
-    public void setShortDescription(String shortDescription) {
-        this.shortDescription = shortDescription;
-    }
-
-    public void setImagePath(String imagePath) {
-        this.imagePath = imagePath;
-    }
 
     // --- equals() and hashCode() ---
-    // Important for comparing properties, especially by their unique ID.
-    // Used in collections like Lists or when searching.
 
     @Override
     public boolean equals(Object o) {
@@ -123,7 +85,6 @@ public class Property implements Serializable {
     }
 
     // --- toString() ---
-    // Useful for debugging and logging, provides a string representation of the object.
 
     @Override
     public String toString() {
@@ -132,7 +93,9 @@ public class Property implements Serializable {
                 ", title='" + title + '\'' +
                 ", price=" + price +
                 ", location='" + location + '\'' +
+                ", description='" + description + '\'' + // Included description in toString
                 ", shortDescription='" + shortDescription + '\'' +
+                ", fullDescription='" + fullDescription + '\'' + // Included fullDescription in toString
                 ", imagePath='" + imagePath + '\'' +
                 '}';
     }

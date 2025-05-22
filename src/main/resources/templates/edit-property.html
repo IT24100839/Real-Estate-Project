@@ -3,14 +3,14 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Add New Property</title>
+    <title>Edit Property</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <style>
         /* Custom styles for the background image */
         body {
             font-family: 'Inter', sans-serif; /* Using Inter font */
             /* Updated background-image URL */
-            background-image: url('https://wealthmasteryacademy.com/wp-content/uploads/2016/12/Basic-Property-Knowledge.jpg');
+            background-image: url('https://cdn.pixabay.com/photo/2014/11/16/12/33/gordes-533375_1280.jpg');
             background-size: cover; /* Cover the entire background */
             background-repeat: no-repeat; /* Do not repeat the image */
             background-attachment: fixed; /* Fix the background image position */
@@ -30,9 +30,12 @@
 </head>
 <body class="flex items-center justify-center min-h-screen p-6">
 
-<div class="bg-white p-8 rounded-lg shadow-lg w-full max-w-md bg-opacity-90"> <h1 class="text-2xl font-bold mb-6 text-center text-gray-800">Add New Property</h1>
+<div class="bg-white p-8 rounded-lg shadow-lg w-full max-w-md bg-opacity-90">
+    <h1 class="text-2xl font-bold mb-6 text-center text-gray-800">Edit Property</h1>
 
-    <form th:object="${property}" th:action="@{/properties}" th:method="post">
+    <form th:object="${property}" th:action="@{/properties/update}" th:method="post">
+
+        <input type="hidden" th:field="*{id}" />
 
         <div class="mb-4">
             <label for="title" class="block text-gray-700 text-sm font-semibold mb-2">Title:</label>
@@ -80,9 +83,9 @@
         <div class="flex items-center justify-between">
             <button type="submit"
                     class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline transition duration-300 ease-in-out">
-                Add Property
+                Update Property
             </button>
-            <a href="/properties"
+            <a th:href="@{/properties/{id}(id=*{id})}"
                class="inline-block align-baseline font-bold text-sm text-blue-500 hover:text-blue-800 transition duration-300 ease-in-out">
                 Cancel
             </a>
