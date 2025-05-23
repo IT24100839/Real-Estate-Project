@@ -13,7 +13,7 @@
         body {
             font-family: 'Inter', sans-serif;
             /* Background Image Styles */
-            background-image: url('https://img.freepik.com/free-photo/office-supplies_23-2148103974.jpg?semt=ais_hybrid&w=740'); /* Your background image URL */
+            background-image: url('https://img.freepik.com/free-photo/flat-lay-stationary-arrangement-desk-with-copy-space-coffee_23-2148404490.jpg'); /* Your background image URL */
             background-size: cover;       /* Cover the entire element */
             background-position: center;  /* Center the image */
             background-repeat: no-repeat; /* Do not repeat the image */
