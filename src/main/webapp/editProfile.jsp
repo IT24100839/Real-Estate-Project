@@ -16,7 +16,7 @@
       align-items: center;
     }
     .form-container {
-      background: rgba(255,255,255,0.95);
+      background: rgba(255, 255, 255, 0.5);
       padding: 30px;
       border-radius: 12px;
       width: 350px;
@@ -24,14 +24,14 @@
     }
     h2 {
       text-align: center;
-      color: #2c3e50;
+      color: #154a82;
       margin-bottom: 20px;
     }
     label {
       display: block;
       margin-top: 12px;
       font-weight: bold;
-      color: #333;
+      color: #34495e;
     }
     input {
       width: 100%;
@@ -45,7 +45,7 @@
       margin-top: 20px;
       width: 100%;
       padding: 12px;
-      background: #3498db;
+      background: #2c3e50;
       color: white;
       border: none;
       border-radius: 6px;
