@@ -1,0 +1,28 @@
+[ {
+  "id" : "121a717d-9ec3-4278-8db2-53ca56c0fe74",
+  "title" : "castle ",
+  "price" : 4500000,
+  "location" : "Buckinghamshire",
+  "description" : null,
+  "shortDescription" : "A Grade II listed property with 5 bedrooms and 5 bathrooms, featuring 60-foot castellated walls and a 2,727 sq ft refurbished barn.",
+  "fullDescription" : "Stowe Castle combines period charm with modern amenities, including a contemporary kitchen, luxurious bathrooms, and spacious living areas. The estate includes landscaped gardens, a private helipad, and a large barn offering secondary accommodation. Architectural highlights encompass arches, oak doors, a marble fireplace, and flagstone flooring.",
+  "imagePath" : "https://nt.global.ssl.fastly.net/binaries/content/gallery/website/national/regions/oxfordshire-buckinghamshire-berkshire/places/stowe-gardens/library/south-front-of-stowe-house-stowe-landscape-gardens-buckinghamshire-781087.jpg?auto=webp&width=1440&crop=16:7&dpr=2"
+}, {
+  "id" : "8540f919-00b4-40b2-be27-5e7de11b80c6",
+  "title" : "snowy home",
+  "price" : 200000,
+  "location" : "finland",
+  "description" : null,
+  "shortDescription" : "guest house in Finland ",
+  "fullDescription" : "with 5 rooms 3 bathrooms and kitchen with garage the entire house is apply heating",
+  "imagePath" : "https://wpcdn.us-midwest-1.vip.tn-cloud.net/www.mountainliving.com/content/uploads/2020/12/b/z/gordon-rusticextmtn-1.jpeg"
+}, {
+  "id" : "8911fdc8-2554-423e-a4cd-e0c93f161a49",
+  "title" : "gateway house",
+  "price" : 400000,
+  "location" : "Texas",
+  "description" : null,
+  "shortDescription" : "cozy family home",
+  "fullDescription" : "2 master bedrooms 2 small bed rooms a kitchen and a outdoor swimming pool and 2 bathrooms with garage",
+  "imagePath" : "https://images.pexels.com/photos/1396132/pexels-photo-1396132.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2"
+} ]
