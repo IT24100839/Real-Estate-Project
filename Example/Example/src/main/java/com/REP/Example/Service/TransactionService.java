@@ -26,7 +26,7 @@ public class TransactionService {
         return transaction;
     }
 
-    public Transaction updateTransactionStatus(int id, String status) {
+    public Transaction updateTransactionStatus(int id, String status, String buyerName) {
         Transaction transaction = transactionMap.get(id);
         if (transaction != null) {
             transaction.setStatus(status);

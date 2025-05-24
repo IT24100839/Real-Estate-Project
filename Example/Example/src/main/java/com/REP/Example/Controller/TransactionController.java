@@ -31,7 +31,7 @@ public class TransactionController {
     }
 
     @PutMapping("/update")
-    public Transaction updateStatus(@RequestParam int id, @RequestParam String status) {
-        return service.updateTransactionStatus(id, status);
+    public Transaction updateStatus(@RequestParam int id, @RequestParam String status, @RequestParam String buyerName) {
+        return service.updateTransactionStatus(id, status, buyerName);
     }
 }

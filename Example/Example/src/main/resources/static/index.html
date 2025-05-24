@@ -1,0 +1,230 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Property Transaction Management</title>
+  <link rel="stylesheet" href="styles.css" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" crossorigin="anonymous" />
+</head>
+<body>
+
+<!-- Hero Section -->
+<section id="hero" class="hero">
+  <div class="hero-content">
+    <h1>Welcome to Property Transaction Management</h1>
+    <p>This platform lets you explore available property listings, book your desired property, and track every step of the transaction process.</p>
+    <div class="nav-buttons">
+      <button onclick="startApp('listings')"><i class="fas fa-list"></i> Transaction Listing</button>
+      <button onclick="startApp('booking')"><i class="fas fa-calendar-check"></i> Book Property</button>
+      <button onclick="startApp('status')"><i class="fas fa-info-circle"></i> Transaction Status</button>
+    </div>
+  </div>
+</section>
+
+<!-- Dashboard Header -->
+<header id="main-header" class="hidden">
+  <div class="header-container">
+    <br><h1><i class="fas fa-building"></i> Property Transaction Management</h1><br>
+    <nav>
+      <a href="#" onclick="goToHero()"><i class="fas fa-home"></i> Home</a>
+      <a href="#" onclick="showSection('listings')"><i class="fas fa-list"></i> Transaction Listing</a>
+      <a href="#" onclick="showSection('booking')"><i class="fas fa-calendar-check"></i> Book Property</a>
+      <a href="#" onclick="showSection('status')"><i class="fas fa-info-circle"></i> Transaction Status</a>
+    </nav>
+  </div>
+</header>
+
+<main>
+
+  <!-- Transaction Listing Section -->
+  <section id="listings" class="section hidden">
+    <h2>Transaction Listing</h2>
+    <p class="desc">Here you can see all existing property transactions at a glance.</p>
+    <ul id="transaction-list"></ul>
+    <button onclick="goToHero()" class="back-button">← Back to Home</button>
+  </section>
+
+  <!-- Booking Section -->
+  <section id="booking" class="section hidden">
+    <h2>Book Property</h2>
+    <p class="desc">Create a new property booking by filling out the form below.</p>
+    <form onsubmit="bookProperty(event)" class="horizontal-form">
+      <div class="input-pair">
+        <div class="form-group">
+          <label for="propertyId">Property ID:</label>
+          <input type="text" id="propertyId" required />
+        </div>
+        <div class="form-group">
+          <label for="buyerName">Buyer Name:</label>
+          <input type="text" id="buyerName" required />
+        </div>
+      </div>
+      <button type="submit">Book Property</button>
+      <button type="button">Cancel Booking</button>
+      <button type="button" onclick="goToHero()" class="back-button">← Back to Home</button>
+    </form>
+  </section>
+
+  <!-- Status Update Section -->
+  <section id="status" class="section hidden">
+    <h2>Update Transaction Status</h2>
+    <p class="desc">Search for a transaction and update its status.</p>
+    <form onsubmit="updateStatus(event)" class="horizontal-form">
+      <div class="input-pair">
+        <div class="form-group">
+          <label for="transactionId">Transaction ID:</label>
+          <input type="text" id="transactionId" required />
+        </div>
+        <div class="form-group">
+          <label for="statusSelect">Status:</label>
+          <select id="statusSelect" required>
+            <option value="Pending">Pending</option>
+            <option value="Confirmed">Confirmed</option>
+            <option value="Completed">Completed</option>
+          </select>
+        </div>
+      </div>
+      <button type="submit">Update Status</button>
+      <button type="button">Cancel Update</button>
+      <button type="button" onclick="goToHero()" class="back-button">← Back to Home</button>
+    </form>
+  </section>
+
+  <!-- Detail View -->
+  <section id="transaction-detail" class="section hidden">
+    <h2>Transaction Detail</h2>
+    <p class="desc">Detailed view of selected transaction.</p>
+    <p><strong>ID:</strong> <span id="detail-id"></span></p>
+    <p><strong>Status:</strong> <span id="detail-status"></span></p>
+    <p><strong>Property ID:</strong> <span id="detail-property">-</span></p>
+    <p><strong>Buyer:</strong> <span id="detail-buyer">-</span></p>
+    <p><strong>Date:</strong> 2025-05-08</p>
+    <button onclick="backToListing()">← Back to Listing</button>
+  </section>
+
+</main>
+
+<script>
+  function startApp(section) {
+    document.getElementById('hero').classList.add('hidden');
+    document.getElementById('main-header').classList.remove('hidden');
+    showSection(section);
+    if (section === 'listings') {
+      fetchTransactions();
+    }
+  }
+
+  function showSection(id) {
+    document.querySelectorAll('.section').forEach(s => s.classList.add('hidden'));
+    document.getElementById(id).classList.remove('hidden');
+  }
+
+  function goToHero() {
+    document.querySelectorAll('.section').forEach(s => s.classList.add('hidden'));
+    document.getElementById('main-header').classList.add('hidden');
+    document.getElementById('hero').classList.remove('hidden');
+  }
+
+  function fetchTransactions() {
+    fetch("http://localhost:8080/api/transactions")
+      .then(res => res.json())
+      .then(data => {
+        const list = document.getElementById("transaction-list");
+        list.innerHTML = ""; // clear existing list
+        data.forEach(tx => {
+          const li = document.createElement("li");
+          li.textContent = `Transaction ID: ${tx.id} | Status: ${tx.status}`;
+          li.onclick = () => showTransactionDetail(tx.id);
+          list.appendChild(li);
+        });
+      })
+      .catch(err => {
+        console.error("Error fetching transactions:", err);
+      });
+  }
+
+  function showTransactionDetail(id) {
+    fetch(`http://localhost:8080/api/transactions/${id}`)
+      .then(res => res.json())
+      .then(tx => {
+        document.getElementById('detail-id').innerText = tx.id;
+        document.getElementById('detail-status').innerText = tx.status;
+        document.getElementById('detail-property').innerText = tx.propertyId;
+        document.getElementById('detail-buyer').innerText = tx.buyerName;
+        showSection('transaction-detail');
+      })
+      .catch(err => {
+        alert("Error loading transaction details.");
+        console.error(err);
+      });
+  }
+
+  function backToListing() {
+    showSection('listings');
+    fetchTransactions();
+  }
+
+  function bookProperty(event) {
+    event.preventDefault();
+    const propertyId = document.getElementById('propertyId').value;
+    const buyerName = document.getElementById('buyerName').value;
+
+    const formData = new URLSearchParams();
+    formData.append("propertyId", propertyId);
+    formData.append("buyerName", buyerName);
+
+    fetch("http://localhost:8080/api/transactions/book", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/x-www-form-urlencoded",
+      },
+      body: formData.toString(),
+    })
+    .then(res => res.json())
+    .then(transaction => {
+      alert(`Property ${transaction.propertyId} booked successfully for ${transaction.buyerName}`);
+      document.getElementById('propertyId').value = '';
+      document.getElementById('buyerName').value = '';
+      fetchTransactions();
+      showSection('listings');
+    })
+    .catch(err => {
+      alert("Booking failed: " + err.message);
+      console.error(err);
+    });
+  }
+
+  function updateStatus(event) {
+    event.preventDefault();
+    const id = document.getElementById('transactionId').value;
+    const status = document.getElementById('statusSelect').value;
+
+    const formData = new URLSearchParams();
+    formData.append("id", id);
+    formData.append("status", status);
+    formData.append("buyerName", ""); // placeholder
+
+    fetch("http://localhost:8080/api/transactions/update", {
+      method: "PUT",
+      headers: {
+        "Content-Type": "application/x-www-form-urlencoded",
+      },
+      body: formData.toString(),
+    })
+    .then(res => res.json())
+    .then(updated => {
+      alert(`Transaction ${updated.id} updated to ${updated.status}`);
+      document.getElementById('transactionId').value = '';
+      showSection('listings');
+      fetchTransactions();
+    })
+    .catch(err => {
+      alert("Update failed: " + err.message);
+      console.error(err);
+    });
+  }
+</script>
+
+</body>
+</html>
