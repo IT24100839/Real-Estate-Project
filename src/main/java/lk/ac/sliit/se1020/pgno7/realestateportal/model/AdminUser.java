@@ -1,7 +1,7 @@
 package lk.ac.sliit.se1020.pgno7.realestateportal.model; // Using pgno7
 
 // Represents a generic user in the system
-public class User {
+public class AdminUser {
     private String userId;       // Unique identifier for the user
     private String username;
     private String password;     // In a real-world app, hash passwords! For this project, plain text might be acceptable per instructions.
@@ -9,7 +9,7 @@ public class User {
     private String contactInfo;
 
     // Constructor to create a new User object
-    public User(String userId, String username, String password, String name, String contactInfo) {
+    public AdminUser(String userId, String username, String password, String name, String contactInfo) {
         this.userId = userId;
         this.username = username;
         this.password = password;
